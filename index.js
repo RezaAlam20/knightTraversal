@@ -1,7 +1,22 @@
 function knightMoves(start, end) {
   let queue = [];
   queue.push(start);
-  while (queue.length > 0) {}
+  let track = [];
+
+  while (queue.length > 0) {
+    for (let i = 0; i < queue.length; i++) {
+      if (queue[i] == end) {
+        queue = [];
+        return track;
+      }
+    }
+    let children = possibleMoves(queue[0]);
+    for (let i = 0; i < children.length; i++) {
+      queue.push(children[i]);
+    }
+    track.push(queue[0]);
+    queue.shift();
+  }
 }
 
 function possibleMoves(start) {
@@ -17,16 +32,13 @@ function possibleMoves(start) {
   ];
   let finalArr = [];
   for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr[i].length; j++) {
-      if (arr[i][j] > 7 || arr[i][j] < 0) {
-        break;
-      } else {
-        finalArr.push(arr[i]);
-        break;
-      }
+    if (arr[i][0] > 7 || arr[i][0] < 0 || arr[i][1] > 7 || arr[i][1] < 0) {
+      continue;
     }
+    finalArr.push(arr[i]);
   }
+
   return finalArr;
 }
 
-console.log(possibleMoves([4, 4]));
+console.log(possibleMoves([5, 5]));
