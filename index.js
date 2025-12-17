@@ -5,7 +5,8 @@ function knightMoves(start, end) {
 
   while (queue.length > 0) {
     for (let i = 0; i < queue.length; i++) {
-      if (queue[i] == end) {
+      if (compareArr(queue[i], end)) {
+        track.push(queue[i]);
         queue = [];
         return track;
       }
@@ -17,6 +18,7 @@ function knightMoves(start, end) {
     track.push(queue[0]);
     queue.shift();
   }
+  return track;
 }
 
 function possibleMoves(start) {
@@ -41,4 +43,14 @@ function possibleMoves(start) {
   return finalArr;
 }
 
-console.log(possibleMoves([5, 5]));
+function compareArr(arr1, arr2) {
+  let same = false;
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] == arr2[i]) {
+      same = true;
+    } else same = false;
+  }
+  return same;
+}
+
+console.log(knightMoves([3, 3], [0, 0]));
