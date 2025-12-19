@@ -74,12 +74,16 @@ class Node {
 }
 
 function notPrettyPrint(node) {
+  let moves = [];
   while (node.prev != null) {
-    console.log(node.data);
+    moves.unshift(node.data);
     node = node.prev;
   }
   if (node.prev == null) {
-    console.log(node.data);
+    moves.unshift(node.data);
   }
+  console.log(`You made it in ${moves.length - 1}`);
+  console.log("Your path was :");
+  console.log(moves);
 }
-knightMoves([0, 0], [7, 7]);
+knightMoves([0, 0], [3, 3]);
