@@ -1,13 +1,12 @@
 function knightMoves(start, end) {
   let queue = [];
   queue.push(new Node(start));
-  console.log("line 3");
 
   while (queue.length > 0) {
-    console.log("while loop start");
     for (let i = 0; i < queue.length; i++) {
       if (compareArr(queue[i].data, end)) {
-        console.log(queue[i]);
+        notPrettyPrint(queue[i]);
+
         queue = [];
         break;
       }
@@ -16,14 +15,13 @@ function knightMoves(start, end) {
       break;
     }
 
-    let children = possibleMoves(queue[0]);
-    let nodeArr = makeNodesArr(start, children);
+    let children = possibleMoves(queue[0].data);
+    let nodeArr = makeNodesArr(queue[0], children);
     for (let i = 0; i < nodeArr.length; i++) {
       queue.push(nodeArr[i]);
     }
 
     queue.shift();
-    console.log("while loop end");
   }
 }
 
@@ -52,9 +50,10 @@ function possibleMoves(start) {
 function compareArr(arr1, arr2) {
   let same = false;
   for (let i = 0; i < arr1.length; i++) {
-    if (arr1[i] == arr2[i]) {
-      same = true;
-    } else same = false;
+    if (arr1[i] !== arr2[i]) {
+      same = false;
+      break;
+    } else same = true;
   }
   return same;
 }
@@ -73,4 +72,14 @@ class Node {
     this.prev = prev;
   }
 }
-console.log(knightMoves([3, 3], [0, 0]));
+
+function notPrettyPrint(node) {
+  while (node.prev != null) {
+    console.log(node.data);
+    node = node.prev;
+  }
+  if (node.prev == null) {
+    console.log(node.data);
+  }
+}
+knightMoves([0, 0], [7, 7]);
